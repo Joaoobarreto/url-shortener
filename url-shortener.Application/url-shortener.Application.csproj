@@ -11,4 +11,9 @@
     <PackageReference Include="MediatR" Version="13.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\url-shortener.Data\url-shortener.Data.csproj" />
+    <ProjectReference Include="..\url-shortener.Domain\url-shortener.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

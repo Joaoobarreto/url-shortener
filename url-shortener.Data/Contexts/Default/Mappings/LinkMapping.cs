@@ -24,7 +24,7 @@ public class LinkMapping : IEntityTypeConfiguration<Link>
 
         builder.Property(x => x.ShortenedUrl)
             .HasColumnType("varchar(100)")
-            .HasColumnName("DS_ORIGINAL_URL")
+            .HasColumnName("DS_SHORTENED_URL")
             .IsRequired();
     }
 }

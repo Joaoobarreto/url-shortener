@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using url_shortener.Domain.Utils;
 
 namespace url_shortener.Domain.Entities;
 public class Link
@@ -11,14 +7,16 @@ public class Link
     public string OriginalUrl { get; set; } = string.Empty;
     public string ShortenedUrl { get; set; } = string.Empty;
 
+    protected Link () { }
     private Link(string originalUrl, string shortenerUrl)
     {
         OriginalUrl = originalUrl;
         ShortenedUrl = shortenerUrl;
     }
 
-    public static Link CriarLink(string originalUrl, string shortenerUrl)
+    public static Link Criar(string originalUrl)
     {
+        var shortenerUrl = Base62Converter.Encode(originalUrl);
         return new Link(originalUrl, shortenerUrl);
     }
 }

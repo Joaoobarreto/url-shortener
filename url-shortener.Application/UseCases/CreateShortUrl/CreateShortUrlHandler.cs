@@ -1,15 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
+using SCI.Domain._SharedKernel.Abstractions;
+using url_shortener.Data.Contexts.Default;
+using url_shortener.Domain._SharedKernel;
+using url_shortener.Domain.Entities;
 
 namespace url_shortener.Application.UseCases.CreateShortUrl;
-public sealed class CreateShortUrlHandler : IRequestHandler<CreateShortUrlCommand, string>
+public sealed class CreateShortUrlHandler(
+    IUnitOfWork<DefaultDbContext> unitOfWork,
+    IRepository<Link> linkRepository
+    ) : IRequestHandler<CreateShortUrlCommand, string>
 {
-    public Task<string> Handle(CreateShortUrlCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(CreateShortUrlCommand request, CancellationToken cancellationToken)
     {
-        return Task.FromResult($"https://short.url/{Guid.NewGuid().ToString().Substring(0, 8)}");
+        var link = Link.Criar(request.OriginalUrl);
+
+        await linkRepository.AddAsync(link);
+
+        await unitOfWork.SaveChangesAsync();
+
+        return link.ShortenedUrl;
     }
 }

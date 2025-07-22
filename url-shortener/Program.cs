@@ -9,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.ConfigureEfContexts(builder.Configuration);
+builder.Services.ConfigureEfContexts(builder.Configuration)
+    .AddRepositories();
 
 builder.Services.AddMediatR(cfg => {
     cfg.RegisterServicesFromAssembly(Assembly.Load("url-shortener.Application"));
