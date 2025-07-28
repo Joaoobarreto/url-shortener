@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\url-shortener.Application\url-shortener.Application.csproj" />
     <ProjectReference Include="..\url-shortener.Data\url-shortener.Data.csproj" />
+    <ProjectReference Include="..\url-shortener.Projection\url-shortener.Projection.csproj" />
   </ItemGroup>
 
 </Project>

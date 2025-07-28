@@ -12,7 +12,14 @@ public sealed class CreateShortUrlHandler(
 {
     public async Task<string> Handle(CreateShortUrlCommand request, CancellationToken cancellationToken)
     {
-        var link = Link.Criar(request.OriginalUrl);
+        var existingLink = await linkRepository.GetByOriginalUrl(request.OriginalUrl);
+
+        if(existingLink is not null)
+        {
+            throw new InvalidOperationException($"A link with the original URL '{request.OriginalUrl}' already exists.");
+        }
+
+        var link = Link.Criar(request.OriginalUrl, request.ShortenerUrl);
 
         await linkRepository.AddAsync(link);
 

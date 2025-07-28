@@ -1,6 +1,4 @@
-﻿using url_shortener.Domain.Utils;
-
-namespace url_shortener.Domain.Entities;
+﻿namespace url_shortener.Domain.Entities;
 public class Link
 {
     public int Id { get; set; }
@@ -14,9 +12,8 @@ public class Link
         ShortenedUrl = shortenerUrl;
     }
 
-    public static Link Criar(string originalUrl)
+    public static Link Criar(string originalUrl, string shortenerUrl)
     {
-        var shortenerUrl = Base62Converter.Encode(originalUrl);
         return new Link(originalUrl, shortenerUrl);
     }
 }
